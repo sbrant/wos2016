@@ -1,0 +1,28 @@
+<form>
+  <label>Rare applications on the network</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <viz type="treemap_app.treemap">
+        <search>
+          <query>sourcetype=stream:tcp app!=unknown* app!=dns app!=http app!=dhcp | rare app</query>
+        </search>
+        <option name="treemap_app.treemap.useZoom">false</option>
+        <option name="treemap_app.treemap.showLabels">true</option>
+        <option name="treemap_app.treemap.showLegend">false</option>
+        <option name="treemap_app.treemap.showTooltip">false</option>
+        <option name="treemap_app.treemap.maxCategories">10</option>
+        <option name="treemap_app.treemap.useColors">true</option>
+        <option name="treemap_app.treemap.colorMode">categorical</option>
+        <option name="treemap_app.treemap.minColor">#d93f3c</option>
+        <option name="treemap_app.treemap.maxColor">#3fc77a</option>
+        <option name="treemap_app.treemap.numOfBins">9</option>
+      </viz>
+    </panel>
+  </row>
+</form>

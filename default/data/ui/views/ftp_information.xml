@@ -1,0 +1,38 @@
+<form script="autodiscover.js, viz_bubblechart.js">
+  <label>FTP information</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+          <h2>Treemap of all the external FTP login names</h2>
+          <p id="info"/>
+          <div 
+        	id="grouped_treemap_search" 
+        	class="splunk-manager" 
+        	data-require="splunkjs/mvc/searchmanager" 
+        	data-options="{    
+			  &quot;search&quot;: &quot;sourcetype=stream:ftp | stats count by login method&quot;,    
+			  &quot;preview&quot;: true    }">
+          </div>
+          <div 
+        	id="grouped_treemap" 
+        	class="splunk-view" 
+        	data-require="app/d3plus/components/treemap/treemap" 
+        	data-options="{    
+			  &quot;managerid&quot;: &quot;grouped_treemap_search&quot;,    
+			  &quot;height&quot;: &quot;800&quot;,    
+			  &quot;width&quot;: &quot;1800&quot;,     
+ 			  &quot;levels&quot;: [&quot;login&quot;, &quot;method&quot;],    
+			  &quot;size_field&quot;: &quot;count&quot;,    
+			  &quot;time_field&quot;: &quot;time&quot;,    
+			  &quot;tooltip_data&quot;: {&quot;children&quot;: false}    }">
+          </div>
+        </html>
+    </panel>
+  </row>
+</form>

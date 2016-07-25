@@ -1,0 +1,45 @@
+<form script="autodiscover.js, dns_bubblechart.js">
+  <label>Top internal Talkers</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>Top 25 Internal Talkers</title>
+        <search>
+          <query>sourcetype=bro* src_ip=10.* dest_ip=10.* src_ip!=10.*.*.1 dest_ip!=10.*.*.255 src_ip!=10.*.*.255 dest_ip!=10.*.*.1 |dedup src_ip dest_ip|stats count(dest_ip) as Count by src_ip|rename src_ip as Source|sort -Count | head 25</query>
+        </search>
+        <option name="wrap">undefined</option>
+        <option name="rowNumbers">undefined</option>
+        <option name="drilldown">row</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+        <h2>Top Talkers</h2>
+        <div 
+          id="dns_bubblechart" 
+          class="splunk-manager" 
+          data-require="splunkjs/mvc/searchmanager" 
+          data-options="{           
+            &quot;preview&quot;: true,           
+            &quot;search&quot;: &quot;sourcetype=bro* src_ip=10.* dest_ip=10.* src_ip!=10.*.*.1 dest_ip!=10.*.*.255 src_ip!=10.*.*.255 dest_ip!=10.*.*.1 |dedup src_ip dest_ip|stats count(dest_ip) as Count by src_ip|rename src_ip as Source| sort -Count | head 25&quot;,           
+            &quot;earliest_time&quot;: {             
+              &quot;type&quot;: &quot;token_safe&quot;,             
+              &quot;value&quot;: &quot;$$earliest$$&quot;             },           
+            &quot;latest_time&quot;: {             
+              &quot;type&quot;: &quot;token_safe&quot;,             
+              &quot;value&quot;: &quot;$$latest$$&quot;           }         }">
+        </div>
+        <div id="bubblechart" class="splunk-view" data-require="app/wos_2015_tsm/components/bubblechart/bubblechart" data-options="{           &quot;managerid&quot;: &quot;dns_bubblechart&quot;,           &quot;nameField&quot;: &quot;Source&quot;,           &quot;valueField&quot;: &quot;Count&quot;,           &quot;categoryField&quot;: &quot;Source&quot;,           &quot;height&quot;: 665         }">
+        </div>
+      </html>
+    </panel>
+  </row>
+</form>

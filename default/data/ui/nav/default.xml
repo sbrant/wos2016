@@ -1,0 +1,36 @@
+<nav search_view="search" color="#65A637">
+  <collection label="Chat">
+    <view name="chat" />
+  </collection>
+  <collection label="FTP">
+    <view name="ftp_information" />
+  </collection>
+  <collection label="Passwords">
+    <view name="password_statistics" />
+    <view name="common_passwords" />
+  </collection>
+  <collection label="Applications">
+    <view name="rare_applications_on_the_network_" />
+  </collection>
+  <collection label="DNS">
+    <view name="top_dns_domains" />
+    <view name="corporate_ldap_requests" />
+  </collection>
+  <collection label="Web">
+    <view name="http_stuff" />
+    <view name="http_user_agent" />
+    <view name="wos_search_terms" />
+  </collection>
+  <collection label="Encrypted">
+    <view name="ssh_logins" />
+    <view name="ssltls_certificate_status" />
+    <view name="ssl_activity" />
+  </collection>
+  <collection label="Misc">
+    <view name="top_internal_talkers" />
+    <view name="snort_categories_clone" />
+    <view name="stream_stats" />
+    <view name="thats_wierd_bro" />
+  </collection>
+  <view name="about" />
+</nav>

@@ -1,0 +1,37 @@
+<form>
+  <label>HTTP Stuff</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>Top 25 Domains Visited</title>
+        <search>
+          <query>| datamodel WoS_Web Web search | rename Web.ut_domain AS domain | search domain!=None | top 25 domain</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Top 25 HTTP Referrers</title>
+        <search>
+          <query>| datamodel WoS_Web Web search | rename Web.ut_domain_r AS "Referrer Domain" | top 25 "Referrer Domain"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,23 @@
+<form>
+  <label>Search Terms</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>sourcetype=stream:http* http_referrer="*google*" OR http_referrer="*bing*" OR http_referrer=*duckduck* | rex field=http_referrer ".+search\?q\=(?&lt;search_value&gt;[^&amp;]+)" | dedup search_value src_ip | eval v=urldecode(search_value) | search v!="gqrx*" v!="hackrf*" v!="rtl-sdr*" v!=*Cookie* v!=cache* | rename v as "Search Term" src_ip as "IP Address" site as "Search Provider" | table "IP Address" "Search Provider" "Search Term"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+  </row>
+</form>

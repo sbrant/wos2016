@@ -1,0 +1,15 @@
+<form script="autodiscover_globe.js" stylesheet="application.css">
+  <label>World Wide Traffic</label>
+  <fieldset submitButton="false" autoRun="true"></fieldset>
+  <row>
+    <panel>
+      <html>
+        <h2>Location</h2>
+        <div id="globe_search" class="splunk-manager" data-require="splunkjs/mvc/searchmanager" data-options="{           &quot;search&quot;: &quot;earliest=-1w index=bro dest_ip!=10.* AND dest_ip!=192.* |geostats count&quot;,           &quot;preview&quot;: true,           &quot;earliest_time&quot;: &quot;0&quot;,           &quot;latest_time&quot;: &quot;now&quot;         }">
+        </div>
+        <div id="globe" class="splunk-view" data-require="app/wos_2015_tsm/components/globe/globe" data-options="{           &quot;managerid&quot;: &quot;globe_search&quot;,           &quot;world_image_path&quot;: &quot;app/wos_2015_tsm/components/globe/world_night.jpg&quot;,           &quot;lat_field&quot;: &quot;latitude&quot;,           &quot;lon_field&quot;: &quot;longitude&quot;,           &quot;spin_speed&quot;: 1         }">
+        </div>
+      </html>
+    </panel>
+  </row>
+</form>

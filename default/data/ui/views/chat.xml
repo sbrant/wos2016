@@ -1,0 +1,55 @@
+<form script="autodiscover.js, dns_bubblechart.js">
+  <label>Chat/IM</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>Login IDs per service</title>
+        <search>
+          <query>sourcetype=stream:xmpp | stats values(contact_login) by service</query>
+        </search>
+      </table>
+    </panel>
+    <panel>
+      <html>
+          <h2>XMPP: Top 25 domains by number of unique users</h2>
+          <p id="info"/>
+          <div 
+        	id="dns_bubblechart" 
+        	class="splunk-manager" 
+        	data-require="splunkjs/mvc/searchmanager" 
+        	data-options="{            
+			  &quot;search&quot;: &quot;sourcetype=stream:xmpp | stats count(login_id) AS loginids by service | head 25&quot;,   
+			  &quot;preview&quot;: true    }">
+          </div>
+	  	  <div 
+        	id="bubblechart" 
+        	class="splunk-view" 
+        	data-require="app/custom_vizs/components/bubblechart/bubblechart" 
+        	data-options="{     
+			  &quot;managerid&quot;: &quot;dns_bubblechart&quot;,     
+			  &quot;nameField&quot;: &quot;service&quot;,     
+			  &quot;valueField&quot;: &quot;loginids&quot;,     
+			  &quot;categoryField&quot;: &quot;service&quot;,     
+			  &quot;height&quot;: 500     }">
+          </div>
+        </html>
+    </panel>
+  </row>
+   <row>
+    <panel>
+      <table>
+        <search>
+          <query>sourcetype=stream:xmpp message=* | eval my_message=urldecode(message) | table _time my_message | sort -_time | head 10 | fields - _time | rename my_message AS "XMPP Message"</query>
+          <earliest></earliest>
+          <latest></latest>
+        </search>
+      </table>
+    </panel>
+  </row>
+</form>

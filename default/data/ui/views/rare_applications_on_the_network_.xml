@@ -1,0 +1,40 @@
+<form script="autodiscover.js, viz_bubblechart.js">
+  <label>Rare applications on the network</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+    <input type="text" token="term" id="input_term"></input>
+    <input type="text" token="category" id="input_category"></input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h2>Treemap of rare identified applications traversing the network</h2>
+        <p id="info"/>
+        <div 
+          id="grouped_treemap_search" 
+          class="splunk-manager" 
+          data-require="splunkjs/mvc/searchmanager" 
+          data-options="{    
+			&quot;search&quot;: &quot;sourcetype=stream:tcp app!=unknown* app!=dns app!=http app!=dhcp| rare app&quot;,    
+			&quot;preview&quot;: true    }">
+        </div>
+        <div 
+          id="grouped_treemap" 
+          class="splunk-view" 
+          data-require="app/d3plus/components/treemap/treemap" 
+          data-options="{    
+			&quot;managerid&quot;: &quot;grouped_treemap_search&quot;,    
+			&quot;height&quot;: &quot;800&quot;,    
+			&quot;width&quot;: &quot;1800&quot;,     
+			&quot;levels&quot;: [&quot;app&quot;],    
+			&quot;size_field&quot;: &quot;count&quot;,    
+			&quot;time_field&quot;: &quot;time&quot;,    
+			&quot;tooltip_data&quot;: {&quot;children&quot;: false}    }">
+        </div>
+      </html>
+    </panel>
+  </row>
+</form>

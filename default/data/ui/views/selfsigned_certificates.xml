@@ -1,0 +1,20 @@
+<dashboard refresh="300" script="autodiscover.js, dns_bubblechart.js">
+  <label>Self-Signed Certificates</label>
+  <row>
+    <panel>
+      <table>
+        <title>Self-Signed Certificates</title>
+        <search>
+          <query>index=stream | eval self_signed=if(ssl_subject=ssl_issuer, "True", "False") | search self_signed=true | dedup ssl_subject_common_name| rename ssl_subject_common_name as "Common Name" | rename src_ip as "Source IP" | rename dest_ip as "Destination IP" | table "Common Name",  "Source IP", "Destination IP"</query>
+          <earliest>-4h@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="drilldown">row</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>

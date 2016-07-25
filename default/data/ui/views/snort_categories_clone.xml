@@ -1,0 +1,32 @@
+<form script="autodiscover.js">
+  <label>Snort Categories</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <search id="tagcloud_search1">
+    <query>sourcetype=snort category!="Unknown*" category!="Potentially Bad Traffic" | stats count by category</query>
+    <earliest>-4h</earliest>
+    <latest>now</latest>
+  </search>
+  <row>
+    <panel>
+      <html>
+        <h2>Snort Categories</h2>
+        <div 
+          id="tagcloud1" 
+          class="splunk-view" 
+          data-require="app/simple_xml_examples/components/tagcloud/tagcloud" 
+          data-options="{                                    
+            &quot;minFontSize&quot;: 20,           
+            &quot;maxFontSize&quot;: 75,                           
+            &quot;managerid&quot;: &quot;tagcloud_search1&quot;,                         
+            &quot;valueField&quot;: &quot;count&quot;,                         
+            &quot;labelField&quot;: &quot;category&quot;                      }">
+        </div>
+      </html>
+    </panel>
+  </row>
+</form>

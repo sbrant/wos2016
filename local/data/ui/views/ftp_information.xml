@@ -1,0 +1,29 @@
+<form script="autodiscover.js, viz_bubblechart.js">
+  <label>FTP information</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <viz type="treemap_app.treemap">
+        <title>Treemap of all external FTP login names</title>
+        <search>
+          <query>sourcetype=stream:ftp  login!=anonymous login!=ftp | stats count by login method</query>
+        </search>
+        <option name="treemap_app.treemap.useZoom">false</option>
+        <option name="treemap_app.treemap.showLabels">true</option>
+        <option name="treemap_app.treemap.showLegend">false</option>
+        <option name="treemap_app.treemap.showTooltip">false</option>
+        <option name="treemap_app.treemap.maxCategories">10</option>
+        <option name="treemap_app.treemap.useColors">true</option>
+        <option name="treemap_app.treemap.colorMode">categorical</option>
+        <option name="treemap_app.treemap.minColor">#d93f3c</option>
+        <option name="treemap_app.treemap.maxColor">#3fc77a</option>
+        <option name="treemap_app.treemap.numOfBins">6</option>
+      </viz>
+    </panel>
+  </row>
+</form>

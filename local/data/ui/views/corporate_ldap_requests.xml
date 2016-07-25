@@ -1,0 +1,28 @@
+<form script="autodiscover.js">
+  <label>Corporate LDAP requests</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <viz type="wordcloud_app.wordcloud">
+        <title>LDAP requests back to corporate servers</title>
+        <search>
+          <query>sourcetype=stream:dns ldap query_type=SRV | lookup ut_parse_extended_lookup url as query | search ut_domain!=None | stats count by ut_domain | rename ut_domain AS domains</query>
+        </search>
+        <option name="wordcloud_app.wordcloud.alignmentMode">horizontal</option>
+        <option name="wordcloud_app.wordcloud.useColors">true</option>
+        <option name="wordcloud_app.wordcloud.colorBy">colorMode</option>
+        <option name="wordcloud_app.wordcloud.colorMode">sequential</option>
+        <option name="wordcloud_app.wordcloud.numOfBins">3</option>
+        <option name="wordcloud_app.wordcloud.minColor">#d93f3c</option>
+        <option name="wordcloud_app.wordcloud.maxColor">#3fc77a</option>
+        <option name="wordcloud_app.wordcloud.backgroundColor">#222</option>
+        <option name="wordcloud_app.wordcloud.splunkTastic">false</option>
+      </viz>
+    </panel>
+  </row>
+</form>

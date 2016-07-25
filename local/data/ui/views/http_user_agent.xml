@@ -1,0 +1,41 @@
+<form script="autodiscover.js, dns_bubblechart.js">
+  <label>HTTP User Agents</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h2>Browser Types by Frequency</h2>
+        <div 
+          id="dns_bubblechart" 
+          class="splunk-manager" 
+          data-require="splunkjs/mvc/searchmanager" 
+          data-options="{           
+			&quot;preview&quot;: true,           
+			&quot;search&quot;: &quot;| datamodel WoS_Web Web search | search Web.http_user_agent=* | top Web.http_user_agent limit=20&quot;,           
+			&quot;earliest_time&quot;: {             
+			  &quot;type&quot;: &quot;token_safe&quot;,             
+			  &quot;value&quot;: &quot;$$earliest$$&quot;             },           
+			&quot;latest_time&quot;: {             
+			  &quot;type&quot;: &quot;token_safe&quot;,             
+			  &quot;value&quot;: &quot;$$latest$$&quot;           }         }">
+        </div>
+        <div 
+          id="bubblechart" 
+          class="splunk-view" 
+          data-require="app/custom_vizs/components/bubblechart/bubblechart" 
+          data-options="{           
+			&quot;managerid&quot;: &quot;dns_bubblechart&quot;,           
+			&quot;nameField&quot;: &quot;http_user_agent&quot;,           
+			&quot;valueField&quot;: &quot;count&quot;,           
+			&quot;categoryField&quot;: &quot;http_user_agent&quot;,           
+			&quot;height&quot;: 665         }">
+        </div>
+      </html>
+    </panel>
+  </row>
+</form>

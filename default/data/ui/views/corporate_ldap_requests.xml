@@ -1,0 +1,41 @@
+<form script="autodiscover.js">
+  <label>Corporate LDAP requests</label>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Select a time:</label>
+      <default>Last 24 hours</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h1>LDAP requests back to Coporate servers</h1>
+        <div 
+          id="tagcloud_search" 
+          class="splunk-manager" 
+          data-require="splunkjs/mvc/searchmanager" 
+          data-options="{           
+		    &quot;preview&quot;: true,           
+			&quot;search&quot;: &quot;sourcetype=bro_dns ldap qtype_name=SRV | lookup ut_parse_extended_lookup url as query | search ut_domain!=None | stats count by ut_domain | rename ut_domain AS domains&quot;,           
+			&quot;earliest_time&quot;: {             
+			  &quot;type&quot;: &quot;token_safe&quot;,             
+			  &quot;value&quot;: &quot;$$earliest$$&quot;           },           
+			&quot;latest_time&quot;: {             
+			  &quot;type&quot;: &quot;token_safe&quot;,             
+			  &quot;value&quot;: &quot;$$latest$$&quot;           }         }">
+        </div>
+        <div 
+        	id="tagcloud" 
+        	class="splunk-view" 
+        	data-require="app/simple_xml_examples/components/tagcloud/tagcloud" 
+        	data-options="{           
+			  &quot;minFontSize&quot;: 20,           
+			  &quot;maxFontSize&quot;: 95,           
+			  &quot;managerid&quot;: &quot;tagcloud_search&quot;,           
+			  &quot;valueField&quot;: &quot;count&quot;,           
+			  &quot;labelField&quot;: &quot;domains&quot;         }">
+        </div>
+     </html>
+    </panel>
+  </row>
+</form>
